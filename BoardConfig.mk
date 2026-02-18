@@ -104,6 +104,24 @@ PLATFORM_VERSION := 16.1.0
 # TWRP Configuration
 TW_THEME := portrait_hdpi
 TW_EXTRA_LANGUAGES := true
-TW_SCREEN_BLANK_ON_BOOT := true
+
+# 核心修改1：禁用开机熄屏（这是导致触控休眠的直接原因！）
+TW_SCREEN_BLANK_ON_BOOT := false
+
+# 核心修改2：彻底禁用所有屏幕熄灭和超时休眠
+TW_NO_SCREEN_BLANK := true
+TW_NO_SCREEN_TIMEOUT := true
+
+# 核心修改3：禁用硬件功耗节省，防止CPU/触控进入低功耗
+TW_NO_HARDWARE_POWER_SAVINGS := true
+
+# 核心修改4：适配MTK平台显示，强制保持LCM唤醒
+TW_TARGET_USES_CUSTOM_DISPLAY := true
+
+# 你的iQOO Z1屏幕分辨率（必须正确）
+DEVICE_RESOLUTION := 1080x2408
+TARGET_SCREEN_DENSITY := 400
+
+# 其他保持不变
 TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_USE_TOOLBOX := true
