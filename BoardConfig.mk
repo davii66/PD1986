@@ -125,3 +125,6 @@ TARGET_SCREEN_DENSITY := 400
 # 其他保持不变
 TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_USE_TOOLBOX := true
+
+# 确保init.recovery脚本被打包进ramdisk
+TARGET_RECOVERY_DEVICE_DIRS += $(DEVICE_PATH)
