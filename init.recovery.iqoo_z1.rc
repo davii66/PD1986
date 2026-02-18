@@ -1,0 +1,29 @@
+# iQOO Z1 (PD1986) TWRP 触控修复脚本
+# 目标：强制保持亮屏，阻止触控休眠
+
+# 1. 初始化阶段：禁用内核自动休眠
+on init
+    # 强制禁用内核深度休眠
+    write /sys/power/autosleep off
+    # 申请永久唤醒锁
+    write /sys/power/wake_lock "twrp_touch_fix"
+
+# 2. 文件系统就绪后：挂载vendor分区（确保固件可访问）
+on post-fs
+    wait /dev/block/by-name/vendor
+    mount ext4 /dev/block/by-name/vendor /vendor ro wait rec
+
+# 3. TWRP启动完成后：强制点亮屏幕和触控
+on property:sys.boot_completed=1
+    # 强制点亮背光（MTK平台多路径尝试，总有一个生效）
+    write /sys/class/backlight/panel0-backlight/brightness 2047
+    write /sys/class/backlight/lcd-backlight/brightness 2047
+    write /sys/class/leds/lcd-backlight/brightness 2047
+
+    # 强制覆盖屏幕为亮屏状态（0=亮屏）
+    write /sys/devices/virtual/graphics/fb0/blank 0
+    write /sys/class/graphics/fb0/blank 0
+
+    # 修复触控设备节点权限
+    chmod 0666 /dev/input/event3
+    chmod 0666 /dev/input/event4
