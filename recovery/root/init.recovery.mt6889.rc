@@ -36,3 +36,17 @@ on post-fs
     symlink /dev/block/mapper/pl_b /dev/block/by-name/preloader_raw_b
     symlink /dev/block/mapper/pl_a /dev/block/platform/bootdevice/by-name/preloader_raw_a
     symlink /dev/block/mapper/pl_b /dev/block/platform/bootdevice/by-name/preloader_raw_b
+    #修复触摸
+on early-init
+    setprop ro.vivo.product.model PD1986
+    setprop ro.product.model PD1986
+    setprop ro.product.board k6889v1_64
+
+on boot
+    exec u:r:recovery:s0 root root -- /system/bin/vts_app_recovery --update       
+   #修复recovery重启循环
+on post-fs
+    exec u:r:recovery:s0 root root -- /system/bin/clear_bcb.sh
+   #拦截reboot recovery命令
+on property:sys.powerctl=reboot,recovery
+    exec u:r:recovery:s0 root root -- /system/bin/rebootrecovery.sh    

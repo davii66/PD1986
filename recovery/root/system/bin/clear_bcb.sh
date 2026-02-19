@@ -1,0 +1,1 @@
+dd if=/dev/zero of=/dev/block/by-name/misc bs=512 count=1
