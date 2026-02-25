@@ -110,3 +110,7 @@ TW_USE_TOOLBOX := true
 #设置默认语言
 TW_EXTRA_LANGUAGES := true
 TW_DEFAULT_LANGUAGE := zh_CN
+#启用触摸事件日志记录来帮助调试触摸屏问题(不要在发布时留下这个选项，它会很快填满你的日志文件)
+TWRP_EVENT_LOGGING:= true
+TWRP_INCLUDE_LOGCAT := true
+TARGET_USES_LOGD := true
