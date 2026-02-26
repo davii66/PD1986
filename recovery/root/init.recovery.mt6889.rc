@@ -38,7 +38,7 @@ on post-fs
     symlink /dev/block/mapper/pl_b /dev/block/platform/bootdevice/by-name/preloader_raw_b
 on early-init
     #触屏修复
-    setprop ro.vivo.product.model V1986A
+    setprop ro.vivo.product.model PD1986
     setprop ro.product.model V1986A
     setprop ro.product.board k6889v1_64
 
